@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 import hashlib
 import os
 import utils
-from  utils import accountManager, dbManager
+from  utils import accountManager
 
 app = Flask(__name__)
 f = open( "utils/key", 'r' )
@@ -15,7 +15,7 @@ f.close
 @app.route("/")
 def loginOrRegister():
     if 'username' in session:
-        return redirect("/feed")
+        return redirect("/uploadPage")
     else:
         return render_template("loginOrReg.html")
 
@@ -33,7 +33,7 @@ def authOrCreate():
         elif statusNum == 1:
             session["username"]=username
             loginStatus = username + " logged in"
-            return redirect( "/feed" )
+            return redirect( "/uploadPage" )
         elif statusNum == 2:
             loginStatus = "wrong password"
 
@@ -67,8 +67,13 @@ def logout():
 	
 @app.route("/uploadPage")
 def uploadPage():
-	return redirect("uploadPic.html")
+    return render_template("uploadPic.html")
 
+@app.route("/save", methods=["POST"])
+def saveImage():
+
+    return redirect("/")
+    
 
 if __name__ == "__main__":
     app.debug = True
