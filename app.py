@@ -64,7 +64,13 @@ def logout():
         return render_template("loginOrReg.html",status="logged out") 
     else:
         return redirect(url_for('loginOrRegister'))
+	
+@app.route("/uploadPage")
+def uploadPage():
+	return redirect("uploadPic.html")
+
 
 if __name__ == "__main__":
     app.debug = True
     app.run()
+	
